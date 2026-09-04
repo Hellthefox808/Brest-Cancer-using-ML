@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-09-04T13:04:51.526201Z",
+  "accuracy": 0.9571,
+  "precision": 0.9375,
+  "recall": 0.9375,
+  "f1_score": 0.9375,
+  "roc_auc": 0.9885,
+  "confusion_matrix": {
+    "matrix": [
+      [
+        89,
+        3
+      ],
+      [
+        3,
+        45
+      ]
+    ],
+    "true_negatives": 89,
+    "false_positives": 3,
+    "false_negatives": 3,
+    "true_positives": 45
+  },
+  "classification_report": {
+    "Benign (2)": {
+      "precision": 0.967391304347826,
+      "recall": 0.967391304347826,
+      "f1-score": 0.967391304347826,
+      "support": 92.0
+    },
+    "Malignant (4)": {
+      "precision": 0.9375,
+      "recall": 0.9375,
+      "f1-score": 0.9375,
+      "support": 48.0
+    },
+    "accuracy": 0.9571428571428572,
+    "macro avg": {
+      "precision": 0.9524456521739131,
+      "recall": 0.9524456521739131,
+      "f1-score": 0.9524456521739131,
+      "support": 140.0
+    },
+    "weighted avg": {
+      "precision": 0.9571428571428572,
+      "recall": 0.9571428571428572,
+      "f1-score": 0.9571428571428572,
+      "support": 140.0
+    }
+  },
+  "training_info": {
+    "train_accuracy": 0.9785330948121646,
+    "cv_mean_accuracy": 0.9731821106821107,
+    "cv_std_accuracy": 0.009751556393259538,
+    "hyperparameters": {
+      "C": 1.0,
+      "kernel": "rbf",
+      "probability": true
+    }
+  },
+  "metadata": {
+    "total_samples": 699,
+    "train_samples": 559,
+    "test_samples": 140,
+    "benign_samples": 458,
+    "malignant_samples": 241,
+    "features": [
+      "clump_thickness",
+      "uniform_cell_size",
+      "uniform_cell_shape",
+      "marginal_adhesion",
+      "single_epithelial_size",
+      "bare_nuclei",
+      "bland_chromatin",
+      "normal_nucleoli",
+      "mitoses"
+    ]
+  }
+}

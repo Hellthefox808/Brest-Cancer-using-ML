@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnostic Report: Benign (Negative) - Breast Cancer Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-dark: #047857;
+      --primary-light: #d1fae5;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --border-color: #e2e8f0;
+      --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .report-card {
+      background: var(--card-bg);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      max-width: 840px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .report-header {
+      background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+      color: #ffffff;
+      padding: 36px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .report-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .report-header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .report-body {
+      padding: 32px;
+    }
+
+    .alert-summary {
+      background: var(--primary-light);
+      border-left: 5px solid var(--primary);
+      padding: 18px 20px;
+      border-radius: 10px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .alert-summary svg {
+      flex-shrink: 0;
+      color: var(--primary);
+      width: 24px;
+      height: 24px;
+      margin-top: 2px;
+    }
+
+    .alert-summary p {
+      color: #065f46;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .feature-item {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 14px 16px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-name {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .feature-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .value-scale {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .guidance-card {
+      background: #f1f5f9;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .guidance-card h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #334155;
+    }
+
+    .guidance-card ul {
+      margin-left: 20px;
+      color: #475569;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .actions-bar {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 24px;
+      line-height: 1.5;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .report-card {
+        box-shadow: none;
+        border: none;
+      }
+      .actions-bar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="report-card">
+    <div class="report-header">
+      <div class="status-badge">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+        Predicted Status: Benign
+      </div>
+      <h1>Non-Cancerous (Benign) Detected</h1>
+      <p>Analysis shows cell characteristics consistent with normal, non-malignant tissue.</p>
+    </div>
+
+    <div class="report-body">
+      <div class="alert-summary">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+        </svg>
+        <div>
+          <strong>Medical Screening Summary:</strong>
+          <p>The Support Vector Classifier evaluated the 9 cytological features and found low cellular atypia. While this is an encouraging indicator, routine screenings and annual clinical examinations remain vital for breast health maintenance.</p>
+        </div>
+      </div>
+
+      <h3 class="section-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        Evaluated Cell Characteristics
+      </h3>
+
+      <div class="features-grid">
+        {% if features %}
+          {% for name, val in features.items() %}
+          <div class="feature-item">
+            <span class="feature-name">{{ name }}</span>
+            <div class="feature-value">
+              <span>{{ val }}</span>
+              <span class="value-scale">/ 10</span>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="feature-name">Cell feature metrics processed successfully.</p>
+        {% endif %}
+      </div>
+
+      <div class="guidance-card">
+        <h4>Recommended Next Steps</h4>
+        <ul>
+          <li><strong>Routine Checkups:</strong> Continue periodic self-examinations and scheduled mammograms as advised by your healthcare provider.</li>
+          <li><strong>Track Changes:</strong> Consult your physician if you notice physical symptoms such as new lumps, skin texture changes, or unexplained pain.</li>
+          <li><strong>Maintain Healthy Habits:</strong> Balanced nutrition, regular physical activity, and awareness are the best preventive measures.</li>
+        </ul>
+      </div>
+
+      <div class="actions-bar">
+        <a href="{{ url_for('home') }}" class="btn btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Run Another Analysis
+        </a>
+        <button onclick="window.print()" class="btn btn-secondary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+          </svg>
+          Print Report
+        </button>
+      </div>
+
+      <p class="disclaimer">
+        Disclaimer: This AI analysis is intended solely for preliminary risk screening and educational purposes based on the Wisconsin Breast Cancer dataset. It does not replace a clinical biopsy, imaging diagnosis, or medical consultation with a qualified oncologist or physician.
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
+

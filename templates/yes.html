@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnostic Report: Malignant Risk Identified - Breast Cancer Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --danger: #dc2626;
+      --danger-dark: #b91c1c;
+      --danger-light: #fee2e2;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --bg-gradient: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+      --card-bg: rgba(255, 255, 255, 0.97);
+      --border-color: #e2e8f0;
+      --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .report-card {
+      background: var(--card-bg);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      max-width: 840px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .report-header {
+      background: linear-gradient(135deg, #dc2626 0%, #e11d48 100%);
+      color: #ffffff;
+      padding: 36px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.22);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .report-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .report-header p {
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    .report-body {
+      padding: 32px;
+    }
+
+    .alert-summary {
+      background: var(--danger-light);
+      border-left: 5px solid var(--danger);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .alert-summary svg {
+      flex-shrink: 0;
+      color: var(--danger);
+      width: 26px;
+      height: 26px;
+      margin-top: 2px;
+    }
+
+    .alert-summary p {
+      color: #991b1b;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .alert-summary strong {
+      display: block;
+      color: #7f1d1d;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 8px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .feature-item {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 14px 16px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-item.high-risk {
+      border-color: #fca5a5;
+      background: #fff5f5;
+    }
+
+    .feature-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-name {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .feature-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .feature-item.high-risk .feature-value {
+      color: var(--danger-dark);
+    }
+
+    .value-scale {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .guidance-card {
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .guidance-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #9f1239;
+    }
+
+    .guidance-card ol {
+      margin-left: 20px;
+      color: #881337;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .guidance-card ol li {
+      margin-bottom: 8px;
+    }
+
+    .actions-bar {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+    }
+
+    .btn-danger:hover {
+      background: var(--danger-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 24px;
+      line-height: 1.5;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .report-card {
+        box-shadow: none;
+        border: none;
+      }
+      .actions-bar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="report-card">
+    <div class="report-header">
+      <div class="status-badge">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+        </svg>
+        Predicted Status: Malignant
+      </div>
+      <h1>Malignancy Risk Identified</h1>
+      <p>The machine learning model evaluated cytological features indicating elevated risk of malignancy.</p>
+    </div>
+
+    <div class="report-body">
+      <div class="alert-summary">
+        <svg fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+        </svg>
+        <div>
+          <strong>Immediate Clinical Consultation Recommended:</strong>
+          <p>This result signifies that the cell morphology metrics resemble malignant tissue patterns observed in the clinical training dataset. Early medical intervention leads to the highest rates of successful treatment and recovery.</p>
+        </div>
+      </div>
+
+      <h3 class="section-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        Evaluated Cell Characteristics
+      </h3>
+
+      <div class="features-grid">
+        {% if features %}
+          {% for name, val in features.items() %}
+          <div class="feature-item {% if val >= 5 %}high-risk{% endif %}">
+            <span class="feature-name">{{ name }}</span>
+            <div class="feature-value">
+              <span>{{ val }}</span>
+              <span class="value-scale">/ 10</span>
+            </div>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="feature-name">Cell feature metrics processed successfully.</p>
+        {% endif %}
+      </div>
+
+      <div class="guidance-card">
+        <h4>Urgent Medical Recommendations</h4>
+        <ol>
+          <li><strong>Consult an Oncologist / Primary Physician:</strong> Book an appointment immediately for an in-depth clinical breast examination (CBE).</li>
+          <li><strong>Diagnostic Imaging:</strong> Request a diagnostic bilateral digital mammogram with targeted breast ultrasound.</li>
+          <li><strong>Tissue Biopsy (FNA / Core Needle):</strong> A clinical histological biopsy performed by a pathologist is the definitive gold standard to verify tumor characteristics.</li>
+          <li><strong>Bring This Report:</strong> Share the submitted cell parameters with your medical care team for context.</li>
+        </ol>
+      </div>
+
+      <div class="actions-bar">
+        <a href="{{ url_for('home') }}" class="btn btn-danger">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Run Another Analysis
+        </a>
+        <button onclick="window.print()" class="btn btn-secondary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+          </svg>
+          Print Report
+        </button>
+      </div>
+
+      <p class="disclaimer">
+        Disclaimer: This AI analysis is an algorithmic tool based on the Wisconsin Breast Cancer dataset for educational and screening assistance. It does NOT constitute an official clinical diagnosis. You must consult a licensed medical professional for definitive diagnostic confirmation.
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
+

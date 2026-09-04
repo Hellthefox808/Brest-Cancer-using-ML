@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OncoScreen ML | Breast Cancer Risk Screening & Diagnostic Pipeline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="header-nav">
+    <div class="nav-container">
+      <a href="#" class="brand-wrapper">
+        <div class="brand-logo">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>OncoScreen ML</h1>
+          <span>Clinical Decision-Support & Diagnostic Pipeline</span>
+        </div>
+      </a>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-tab="tab-single">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+          Single Patient
+        </button>
+        <button class="tab-btn" data-tab="tab-batch">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7z" /><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m-6-8h6" /></svg>
+          Batch Screening
+        </button>
+        <button class="tab-btn" data-tab="tab-pipeline">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+          ML Pipeline & Metrics
+        </button>
+        <button class="tab-btn" data-tab="tab-guide">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+          Clinical Guide
+        </button>
+      </nav>
+
+      <div class="nav-status-pill" id="engineStatusPill">
+        <span class="status-dot"></span> Checking ML Engine...
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-banner">
+    <h2>Breast Cancer Malignancy Screening with <span>Machine Learning</span></h2>
+    <p>Decoupled clinical architecture integrating trained Support Vector Machines with real-time risk calibration, batch processing, and automated training pipelines.</p>
+  </section>
+
+  <!-- Application Main Container -->
+  <main class="app-container">
+
+    <!-- TAB 1: Single Patient Diagnosis -->
+    <div id="tab-single" class="tab-pane active">
+      <div class="diagnosis-layout">
+        
+        <!-- Input Form Card -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+              Enter Cytological Cell Metrics (Scale: 1 to 10)
+            </h3>
+            <div class="presets-group">
+              <button type="button" class="btn-chip chip-benign" data-preset="benign">Benign Preset</button>
+              <button type="button" class="btn-chip chip-malignant" data-preset="malignant">Malignant Preset</button>
+              <button type="button" class="btn-chip" data-preset="borderline">Borderline Preset</button>
+            </div>
+          </div>
+
+          <form id="diagnosisForm" class="panel-body">
+            <div class="inputs-container">
+
+              <!-- 1. Clump Thickness -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="clump_thickness" class="feature-label">Clump Thickness</label>
+                    <span class="feature-desc">Mono-layer (1) to multi-layer atypical clustering (10)</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="1" class="slider-input" id="clump_thickness_slider" aria-label="Clump Thickness slider" title="Clump Thickness slider">
+                  <input type="number" min="1" max="10" step="1" value="1" class="number-input" id="clump_thickness" name="clump_thickness" required>
+                </div>
+              </div>
+
+              <!-- 2. Uniform Cell Size -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="uniform_cell_size" class="feature-label">Uniform Cell Size</label>
+                    <span class="feature-desc">Consistency in cellular volume and dimensions</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="1" class="slider-input" id="uniform_cell_size_slider" aria-label="Uniform Cell Size slider" title="Uniform Cell Size slider">
+                  <input type="number" min="1" max="10" step="1" value="1" class="number-input" id="uniform_cell_size" name="uniform_cell_size" required>
+                </div>
+              </div>
+
+              <!-- 3. Uniform Cell Shape -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="uniform_cell_shape" class="feature-label">Uniform Cell Shape</label>
+                    <span class="feature-desc">Uniform perimeter (1) vs pleomorphic variations (10)</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="1" class="slider-input" id="uniform_cell_shape_slider" aria-label="Uniform Cell Shape slider" title="Uniform Cell Shape slider">
+                  <input type="number" min="1" max="10" step="1" value="1" class="number-input" id="uniform_cell_shape" name="uniform_cell_shape" required>
+                </div>
+              </div>
+
+              <!-- 4. Marginal Adhesion -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="marginal_adhesion" class="feature-label">Marginal Adhesion</label>
+                    <span class="feature-desc">Loss of intercellular binding and cohesion</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="1" class="slider-input" id="marginal_adhesion_slider" aria-label="Marginal Adhesion slider" title="Marginal Adhesion slider">
+                  <input type="number" min="1" max="10" step="1" value="1" class="number-input" id="marginal_adhesion" name="marginal_adhesion" required>
+                </div>
+              </div>
+
+              <!-- 5. Single Epithelial Cell Size -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="single_epithelial_size" class="feature-label">Single Epithelial Cell Size</label>
+                    <span class="feature-desc">Cellular hypertrophy and cytoplasmic enlargement</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="2" class="slider-input" id="single_epithelial_size_slider" aria-label="Single Epithelial Cell Size slider" title="Single Epithelial Cell Size slider">
+                  <input type="number" min="1" max="10" step="1" value="2" class="number-input" id="single_epithelial_size" name="single_epithelial_size" required>
+                </div>
+              </div>
+
+              <!-- 6. Bare Nuclei -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="bare_nuclei" class="feature-label">Bare Nuclei</label>
+                    <span class="feature-desc">Nuclei devoid of surrounding cytoplasm</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="1" class="slider-input" id="bare_nuclei_slider" aria-label="Bare Nuclei slider" title="Bare Nuclei slider">
+                  <input type="number" min="1" max="10" step="1" value="1" class="number-input" id="bare_nuclei" name="bare_nuclei" required>
+                </div>
+              </div>
+
+              <!-- 7. Bland Chromatin -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="bland_chromatin" class="feature-label">Bland Chromatin</label>
+                    <span class="feature-desc">Uniform fine nuclear texture (1) vs coarse clumping (10)</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="2" class="slider-input" id="bland_chromatin_slider" aria-label="Bland Chromatin slider" title="Bland Chromatin slider">
+                  <input type="number" min="1" max="10" step="1" value="2" class="number-input" id="bland_chromatin" name="bland_chromatin" required>
+                </div>
+              </div>
+
+              <!-- 8. Normal Nucleoli -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="normal_nucleoli" class="feature-label">Normal Nucleoli</label>
+                    <span class="feature-desc">Small barely discernible (1) vs prominent, enlarged (10)</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="1" class="slider-input" id="normal_nucleoli_slider" aria-label="Normal Nucleoli slider" title="Normal Nucleoli slider">
+                  <input type="number" min="1" max="10" step="1" value="1" class="number-input" id="normal_nucleoli" name="normal_nucleoli" required>
+                </div>
+              </div>
+
+              <!-- 9. Mitoses -->
+              <div class="feature-field">
+                <div class="feature-field-header">
+                  <div>
+                    <label for="mitoses" class="feature-label">Mitoses</label>
+                    <span class="feature-desc">Pathological mitotic rate of cellular division</span>
+                  </div>
+                </div>
+                <div class="field-controls">
+                  <input type="range" min="1" max="10" step="1" value="1" class="slider-input" id="mitoses_slider" aria-label="Mitoses slider" title="Mitoses slider">
+                  <input type="number" min="1" max="10" step="1" value="1" class="number-input" id="mitoses" name="mitoses" required>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-footer">
+              <button type="button" id="clearFormBtn" class="btn-outline">Reset Form</button>
+              <button type="submit" id="predictSubmitBtn" class="btn-primary-action">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+                Run Diagnostic Screening
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Diagnostic Report Output Panel -->
+        <div class="panel-card results-card">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+              Predictive Report & Risk Stratification
+            </h3>
+          </div>
+
+          <div class="panel-body">
+            <!-- Empty State -->
+            <div id="emptyResults" class="empty-results-state">
+              <svg width="64" height="64" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <h4>No Active Analysis</h4>
+              <p>Adjust the sliders or load a preset, then click <strong>Run Diagnostic Screening</strong> to evaluate malignancy risk.</p>
+            </div>
+
+            <!-- Active Results State -->
+            <div id="activeResults" class="results-content">
+              
+              <!-- Result Status Banner -->
+              <div id="resultBanner" class="result-banner banner-benign">
+                <div id="resultTierBadge" class="result-tier-pill">Low Risk</div>
+                <h3 id="resultStatusTitle">Non-Cancerous (Benign)</h3>
+                <p id="resultStatusDesc">Cellular metrics reflect normal non-proliferative breast tissue.</p>
+              </div>
+
+              <!-- Semi-circle Risk Gauge -->
+              <div id="gaugeContainer" class="gauge-wrapper"></div>
+
+              <!-- High Risk Factors Highlight -->
+              <div id="elevatedFactorsBox" class="factors-summary-box" style="display: none;">
+                <h4>
+                  <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>
+                  Elevated Cytology Markers
+                </h4>
+                <div id="elevatedFactorsList" class="factor-tags-list"></div>
+              </div>
+
+              <!-- Feature Bars Comparison -->
+              <div style="margin-bottom: 20px;">
+                <h4 style="font-size: 13px; font-weight: 700; color: #334155; margin-bottom: 12px;">Parameter Distribution</h4>
+                <div id="featuresBarContainer"></div>
+              </div>
+
+              <!-- Clinical Next Steps -->
+              <div class="clinical-action-box">
+                <strong>Clinical Recommendation:</strong>
+                <p id="clinicalAdviceText">This AI classification assists preliminary screening. Schedule a clinical examination and diagnostic ultrasound/mammogram to correlate with histological findings.</p>
+              </div>
+
+              <div style="display: flex; justify-content: center; margin-top: 16px;">
+                <button type="button" class="btn-outline" onclick="window.print()">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 6px;"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
+                  Print Clinical Summary
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 2: Batch Screening -->
+    <div id="tab-batch" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h3 class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+            Batch Screening via CSV Upload
+          </h3>
+          <button type="button" id="loadSampleBatchBtn" class="btn-chip">Load Demo Batch</button>
+        </div>
+
+        <div class="panel-body">
+          <div id="csvDropzone" class="dropzone">
+            <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+            <svg class="dropzone-icon" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <h4>Upload or Drag & Drop Patient CSV</h4>
+            <p>File must contain the 9 standard feature headers (e.g. clump_thickness, uniform_cell_size, ...)</p>
+          </div>
+
+          <div id="batchResultsContainer" style="display: none;">
+            <div class="batch-stats-bar">
+              <div class="stat-card">
+                <span class="stat-label">Evaluated Records</span>
+                <div class="stat-value" id="batchStatTotal">0</div>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Benign Samples</span>
+                <div class="stat-value" id="batchStatBenign" style="color: var(--success);">0</div>
+              </div>
+              <div class="stat-card">
+                <span class="stat-label">Malignant Risk</span>
+                <div class="stat-value" id="batchStatMalignant" style="color: var(--danger);">0</div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Patient Identifier</th>
+                    <th>Predicted Status</th>
+                    <th>Risk Probability</th>
+                    <th>Risk Tier</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="batchTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: ML Pipeline & Metrics Dashboard -->
+    <div id="tab-pipeline" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h3 class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+            Model Performance & Pipeline Analytics
+          </h3>
+        </div>
+
+        <div class="panel-body">
+          <div class="metrics-grid">
+            <div class="metric-tile">
+              <span class="metric-tile-title">Test Accuracy</span>
+              <div class="metric-tile-num" id="metricAccuracy">--</div>
+              <span class="metric-tile-sub">Held-out test set</span>
+            </div>
+            <div class="metric-tile">
+              <span class="metric-tile-title">Precision</span>
+              <div class="metric-tile-num" id="metricPrecision">--</div>
+              <span class="metric-tile-sub">Positive predictive value</span>
+            </div>
+            <div class="metric-tile">
+              <span class="metric-tile-title">Recall (Sensitivity)</span>
+              <div class="metric-tile-num" id="metricRecall">--</div>
+              <span class="metric-tile-sub">True positive rate</span>
+            </div>
+            <div class="metric-tile">
+              <span class="metric-tile-title">ROC-AUC Score</span>
+              <div class="metric-tile-num" id="metricRocAuc">--</div>
+              <span class="metric-tile-sub">Area under ROC curve</span>
+            </div>
+          </div>
+
+          <div class="confusion-matrix-box">
+            <h4 style="font-size: 15px; font-weight: 700; color: #334155;">2x2 Confusion Matrix (Held-out Test Cohort)</h4>
+            <div class="matrix-grid">
+              <div class="matrix-cell">
+                <strong id="cmTN">--</strong>
+                <span>True Negatives (Benign correctly predicted)</span>
+              </div>
+              <div class="matrix-cell">
+                <strong id="cmFP">--</strong>
+                <span>False Positives (Benign predicted as Malignant)</span>
+              </div>
+              <div class="matrix-cell">
+                <strong id="cmFN">--</strong>
+                <span>False Negatives (Malignant missed)</span>
+              </div>
+              <div class="matrix-cell">
+                <strong id="cmTP">--</strong>
+                <span>True Positives (Malignant correctly identified)</span>
+              </div>
+            </div>
+            <p id="pipelineDatasetStats" style="font-size: 12px; color: var(--text-muted); margin-top: 14px; text-align: center;"></p>
+          </div>
+
+          <div class="pipeline-actions-card">
+            <div>
+              <h4>Automated End-to-End Retraining</h4>
+              <p>Re-runs data ingestion from the UCI repository, median imputation, stratified train-test splitting, cross-validation, and exports fresh artifacts.</p>
+            </div>
+            <button type="button" id="retrainBtn" class="btn-retrain">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+              Trigger Automated Retraining
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: Clinical Reference -->
+    <div id="tab-guide" class="tab-pane">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h3 class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            Wisconsin FNA Cytological Grading Reference
+          </h3>
+        </div>
+        <div class="panel-body" style="font-size: 14px; color: #334155; line-height: 1.7;">
+          <p style="margin-bottom: 16px;">
+            The Wisconsin Diagnostic Breast Cancer (WDBC) metrics evaluate Fine Needle Aspirate (FNA) biopsies. Each property is graded on an integer scale from <strong>1</strong> (normal/benign) to <strong>10</strong> (most aggressive/malignant):
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">1. Clump Thickness:</strong>
+              <p>Benign cells tend to group in single layers; cancerous cells cluster in chaotic multi-layered clumps.</p>
+            </div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">2. Uniform Cell Size:</strong>
+              <p>Malignant cells show marked variation in size, whereas normal cells display uniform dimensions.</p>
+            </div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">3. Uniform Cell Shape:</strong>
+              <p>Cancer cells exhibit pleomorphism, differing wildly in shape and perimeter geometry.</p>
+            </div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">4. Marginal Adhesion:</strong>
+              <p>Normal cells stick tightly together. Malignant cells lose intercellular adhesion, facilitating invasion.</p>
+            </div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">5. Single Epithelial Size:</strong>
+              <p>Significantly enlarged epithelial cells frequently indicate malignancy or dysplasia.</p>
+            </div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">6. Bare Nuclei:</strong>
+              <p>Bare nuclei without cytoplasmic boundaries are strongly correlated with malignant tumors.</p>
+            </div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">7. Bland Chromatin:</strong>
+              <p>Benign nuclei have uniform, fine chromatin; malignant cells have coarse, clumped chromatin.</p>
+            </div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">8. Normal Nucleoli:</strong>
+              <p>Normal cells show small or invisible nucleoli; active tumor cells develop enlarged nucleoli.</p>
+            </div>
+            <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border);">
+              <strong style="color: #0f172a;">9. Mitoses:</strong>
+              <p>High mitotic index reflects elevated pathological cellular replication and rapid tumor growth.</p>
+            </div>
+          </div>
+
+          <div style="background: #fef2f2; border-left: 4px solid var(--danger); padding: 16px; border-radius: 8px; color: #991b1b;">
+            <strong>Important Clinical Disclaimer:</strong>
+            <p style="margin-top: 4px; font-size: 13px;">This system is designed for medical research, risk-stratification demonstration, and educational decision-support. It does NOT substitute for a definitive histological biopsy or clinical oncological consultation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 2026 OncoScreen ML | Decoupled Architecture | Automated Machine Learning Pipeline</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  oncoscreen-app:
+    build: .
+    container_name: oncoscreen-ml-service
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - HOST=0.0.0.0
+      - FLASK_DEBUG=False
+    restart: unless-stopped
