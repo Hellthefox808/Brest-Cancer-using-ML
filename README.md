@@ -33,6 +33,32 @@ A decoupled, full-stack clinical decision-support application and automated Mach
 
 ---
 
+## Provenance, Baseline & Engineering Contribution Matrix
+
+This project originated as an inherited educational baseline and was subsequently re-engineered, refactored, hardened, and containerized into a production-grade, validated system.
+
+### Baseline vs. Engineered Delta (Contribution Traceability)
+
+| Lifecycle Area | Inherited Baseline | Engineered Delta & Final Result | Contribution Class |
+| :--- | :--- | :--- | :---: |
+| **System Architecture** | Tightly coupled monolithic Flask script | Decoupled full-stack architecture with independent `frontend/` (SPA) and `backend/` (REST API) | `REFACTORED` |
+| **Prediction Model** | Uncalibrated SVC without probability distribution | Calibrated `SVC(probability=True)` with Platt scaling, cross-validation, and risk percentage profiling | `MODIFIED` / `HARDENED` |
+| **ML Training Pipeline** | No automated pipeline; manual training | Automated 4-stage pipeline (`data_loader` → `preprocess` → `train` → `evaluate`) with CLI runner | `ADDED` |
+| **Data Ingestion** | Local static file assumption | Automated UCI repository downloader with local caching | `ADDED` |
+| **Data Preprocessing** | Unhandled missing values (`?` in `bare_nuclei`) | Median imputation preserving complete sample size ($N=699$) and stratified 80/20 train/test split | `FIXED` |
+| **API Layer** | Single coupled form endpoint (`POST /predict`) | Stateless REST API (`/api/health`, `/api/features`, `/api/model/metrics`, `/api/predict`, `/api/predict/batch`, `/api/pipeline/train`) | `ADDED` |
+| **Frontend UI** | Broken HTML with syntax errors and missing tags | Responsive Single Page Application with dual sliders/steppers, presets, SVG radial risk meter, and batch CSV drag-and-drop | `REFACTORED` / `ADDED` |
+| **DevOps & CI/CD** | No test suite, no containerization, no CI | Production Dockerfile, docker-compose.yml, GitHub Actions CI workflow, and 24 Pytest tests | `DEPLOYED` / `TESTED` |
+| **Security & Validation** | Raw form iteration without boundary checks | Strict 1–10 boundary validation, batch rate limiting (500 max), sanitized JSON payloads | `HARDENED` |
+
+### Dataset & Scientific Attribution
+
+- **Dataset**: Wisconsin Breast Cancer (Original) Dataset (1992).
+- **Principal Investigator**: Dr. William H. Wolberg, University of Wisconsin Hospitals, Madison.
+- **Repository Citation**: Dua, D. and Graff, C. (2019). UCI Machine Learning Repository. Irvine, CA: University of California, School of Information and Computer Science.
+
+---
+
 ## Tech Stack
 
 - **Machine Learning**: Scikit-learn (Support Vector Classifier with RBF kernel and Platt probability calibration), NumPy, Pandas.
